@@ -32,3 +32,4 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 ###############################################################################
 # modules
 add_subdirectory(01_TwoSum)
+add_subdirectory(02_AddTwoNumbers)
