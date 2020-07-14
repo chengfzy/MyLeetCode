@@ -4,6 +4,7 @@
 https://leetcode.com/problems/median-of-two-sorted-arrays/
 
 ## 思路
+### 二分查找
 由于题目要求计算复杂度$\mathcal{O}(\log(m+n))$, 通常会采用二分法来处理.
 将数组$a$和$b$拆分成左右两部分, 
 $$
@@ -49,3 +50,6 @@ $$
 1. $i, i+1, j, j+1$可能越界, 若越界则将该数设成最大或最小值, 比如$\mathtt{max_{int}} \rightarrow a[i]$.
 1. 需同时检查条件$i_0 < i_1$.
 1. $m \le n$, 若$m > n$， 将数据交换后再查找中位数.
+
+### 第k小数解法
+TODO

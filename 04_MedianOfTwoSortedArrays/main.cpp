@@ -11,7 +11,33 @@ using namespace testing;
  */
 class Solution {
   public:
+    int findKthElm(vector<int>& nums1, vector<int>& nums2, int k) {
+        int le = max(0, int(k - nums2.size())), ri = min(k, int(nums1.size()));
+        while (le < ri) {
+            int m = le + (ri - le) / 2;
+            if (nums2[k - m - 1] > nums1[m]) {
+                le = m + 1;
+            } else {
+                ri = m;
+            }
+        }
+        //循环结束时的位置le即为所求位置，第k小即为max(nums1[le-1]),nums2[k-le-1])，但是由于le可以为0、k,所以
+        // le-1或者k-le-1可能不存在所以下面单独判断下
+        int nums1LeftMax = le == 0 ? numeric_limits<int>::min() : nums1[le - 1];
+        int nums2LeftMax = le == k ? numeric_limits<int>::min() : nums2[k - le - 1];
+        return max(nums1LeftMax, nums2LeftMax);
+    }
+
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int n = nums1.size() + nums2.size();
+        if (n & 1) {
+            return findKthElm(nums1, nums2, (n >> 1) + 1);
+        } else {
+            return (findKthElm(nums1, nums2, n >> 1) + findKthElm(nums1, nums2, (n >> 1) + 1)) / 2.0;
+        }
+    }
+
+    double findMedianSortedArrays01(vector<int>& nums1, vector<int>& nums2) {
         int m = nums1.size();
         int n = nums2.size();
         if (m > n) {
