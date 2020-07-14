@@ -12,9 +12,35 @@ using namespace testing;
 class Solution {
   public:
     /**
-     * @brief Sliding window optimized, conside the index i move step
+     * @brief Sliding window optimized, similar to 03 but more simple code
      */
     int lengthOfLongestSubstring(string s) {
+        int maxLen{0};
+        array<int, 256> charPos;  // the character exist pos
+        charPos.fill(-1);
+
+        int i{0}, j{0};  // start index
+        for (; j < s.size(); ++j) {
+            int ch = s[j];
+            if (charPos[ch] >= i) {
+                // calculate the length
+                maxLen = max(maxLen, j - i);
+
+                i = charPos[ch] + 1;  // move i more faster
+            }
+            charPos[ch] = j;
+        }
+
+        // calculate the length when break `for`
+        maxLen = max(maxLen, j - i);
+
+        return maxLen;
+    }
+
+    /**
+     * @brief Sliding window optimized, conside move index i more faster
+     */
+    int lengthOfLongestSubstring03(string s) {
         int maxLen{0};
         array<int, 256> charPos;  // the character exist pos
         charPos.fill(-1);
@@ -150,7 +176,6 @@ TEST(Test, Test04) {
 TEST(Test, Test05) {
     // test case
     string s{"tmmzuxt"};
-
     // test
     Solution solution;
     EXPECT_EQ(solution.lengthOfLongestSubstring(s), 5);
