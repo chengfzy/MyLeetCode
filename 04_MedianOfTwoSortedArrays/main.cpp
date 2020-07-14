@@ -43,7 +43,7 @@ class Solution {
         // calculate the return value
         int maxLeft = max(a0, b0);
         int minRight = min(a1, b1);
-        return (m + n) % 2 ? maxLeft : (maxLeft + minRight) / 2.0;
+        return (m + n) & 1 ? maxLeft : (maxLeft + minRight) / 2.0;
     }
 };
 
